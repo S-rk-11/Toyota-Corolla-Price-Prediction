@@ -9,10 +9,9 @@ toyota-corolla-price-prediction/
 ├─ notebooks/
 │  └─ toyota_corolla.ipynb
 ├─ data/
-│  └─ ToyotaCorolla.csv (dataset not uploaded due to size)
+│  └─ ToyotaCorolla.csv
 ├─ requirements.txt
 ├─ README.md
-└─ .gitignore
 
 ## Workflow
 - **EDA (Exploratory Data Analysis)**: summary stats, correlations, visualizations  
