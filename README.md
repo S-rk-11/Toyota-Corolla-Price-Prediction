@@ -36,9 +36,3 @@ Clone this repository and install dependencies:
 git clone https://github.com/yourusername/toyota-corolla-price-prediction.git
 cd toyota-corolla-price-prediction
 pip install -r requirements.txt
-
-## Author
-**Shivani Kalghatgi**  
-- [LinkedIn](https://www.linkedin.com/in/shivanikalghatgi)  
-- [Kaggle](https://www.kaggle.com/shivanikalghatgi)  
-- Email: shivanikalghatgi@gmail.com  
