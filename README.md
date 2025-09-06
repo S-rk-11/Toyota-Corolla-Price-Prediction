@@ -33,7 +33,7 @@ toyota-corolla-price-prediction/
 ## Installation
 Clone this repository and install dependencies:
 (```bash)
-git clone https://github.com/yourusername/toyota-corolla-price-prediction.git
+git clone https://github.com/S-rk-11/toyota-corolla-price-prediction.git
 cd toyota-corolla-price-prediction
 pip install -r requirements.txt
 
