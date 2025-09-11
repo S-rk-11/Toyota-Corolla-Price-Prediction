@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import os
 
 # Page Config
 st.set_page_config(
@@ -12,29 +13,27 @@ st.set_page_config(
 #Background Image
 def set_bg_image(image_path):
     st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("{image_path}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-        .stApp::before {{
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.3); /* overlay */
-            z-index: -1;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    "<style>\n"
+    ".stApp {\n"
+    "  background-image: url('image/Toyota_bg.jpg');\n"
+    "  background-size: cover;\n"
+    "  background-position: center;\n"
+    "  background-repeat: no-repeat;\n"
+    "  background-attachment: fixed;\n"
+    "}\n"
+    ".stApp::before {\n"
+    "  content: '';\n"
+    "  position: absolute;\n"
+    "  top: 0;\n"
+    "  left: 0;\n"
+    "  width: 100%;\n"
+    "  height: 100%;\n"
+    "  background-color: rgba(255, 255, 255, 0.3);\n"
+    "  z-index: -1;\n"
+    "}\n"
+    "</style>",
+    unsafe_allow_html=True
+)
 
 # Set your image path here
 set_bg_image("image/Toyota_bg.jpg")
