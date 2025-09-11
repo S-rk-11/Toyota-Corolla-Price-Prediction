@@ -66,8 +66,12 @@ input_df = pd.DataFrame({
     "Seats": [seats]
 })
 
+#scale input
+scaled_input = scaler.transform(input_data)
+
+# Prediction
+prediction = model.predict(scaled_input)[0]
+prediction_proba = model.predict_proba(scaled_input)[0][1]
+
 #Prediction
 if st.button("Predict Price"):
-    scaled_input = scaler.transorm(input_df)
-    prediction = model.predict(scaled_input)
-    st.success(f"Estimated Price: ₹ {prediction[0]:,.2f}")
