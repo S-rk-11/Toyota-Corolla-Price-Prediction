@@ -39,10 +39,10 @@ def set_bg_image(image_path):
 set_bg_image("image/Toyota_bg.jpg")
 
 # Load saved model
-with open("models/random_forest_model.pkl", "rb") as f:
-    model = pickle.load(f)
-
 with open("models/scaler_model.pkl", "rb") as f:
+    scaler = pickle.load(f)
+
+with open("models/random_forest_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 prediction = model.predict(scaled_input)
