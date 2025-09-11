@@ -45,8 +45,8 @@ with open("models/scaler_model.pkl", "rb") as f:
 with open("models/random_forest_model.pkl", "rb") as f:
     model = pickle.load(f)
 
-prediction = model.predict(scaled_input)
 scaled_input = scaler.transorm(input_df)
+prediction = model.predict(scaled_input)
 
 st.title("Toyota Corolla Price Prediction 🚗")
 
