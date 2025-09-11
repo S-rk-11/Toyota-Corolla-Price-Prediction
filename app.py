@@ -45,9 +45,7 @@ with open("models/scaler_model.pkl", "rb") as f:
 with open("models/random_forest_model.pkl", "rb") as f:
     model = pickle.load(f)
 
-scaled_input = scaler.transorm(input_df)
-prediction = model.predict(scaled_input)
-
+#App Title
 st.title("Toyota Corolla Price Prediction 🚗")
 
 # User inputs
@@ -58,6 +56,7 @@ cc = st.number_input("Engine Capacity (CC)", 500, 5000, 1500)
 doors = st.selectbox("Doors", [2, 3, 4, 5])
 seats = st.selectbox("Seats", [2, 4, 5, 7])
 
+# Create Input DataFrame
 input_df = pd.DataFrame({
     "Year": [year],
     "KM": [km],
@@ -67,6 +66,8 @@ input_df = pd.DataFrame({
     "Seats": [seats]
 })
 
+#Prediction
 if st.button("Predict Price"):
-    prediction = model.predict(input_df)
+    scaled_input = scaler.transorm(input_df)
+    prediction = model.predict(scaled_input)
     st.success(f"Estimated Price: ₹ {prediction[0]:,.2f}")
