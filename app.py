@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pickle
+import joblib
 
 # Page Config
 st.set_page_config(
@@ -12,62 +12,71 @@ st.set_page_config(
 #Background Image
 def set_bg_image(image_path):
     st.markdown(
-    "<style>\n"
-    ".stApp {\n"
-    "  background-image: url('image/Toyota_bg.jpg');\n"
-    "  background-size: cover;\n"
-    "  background-position: center;\n"
-    "  background-repeat: no-repeat;\n"
-    "  background-attachment: fixed;\n"
-    "}\n"
-    ".stApp::before {\n"
-    "  content: '';\n"
-    "  position: absolute;\n"
-    "  top: 0;\n"
-    "  left: 0;\n"
-    "  width: 100%;\n"
-    "  height: 100%;\n"
-    "  background-color: rgba(255, 255, 255, 0.3);\n"
-    "  z-index: -1;\n"
-    "}\n"
-    "</style>",
-    unsafe_allow_html=True
-)
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("{image_path}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
+        .stApp::before {{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+            z-index: -1;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Set your image path here
 set_bg_image("image/Toyota_bg.jpg")
 
 # Load saved model
-with open ("models/random_forest_model.pkl", "rb") as f:
-  model = pickle.load(f)
-
-with open ("models/scaler_model.pkl", "rb") as f:
-  scaler = pickle.load(f)
+model = joblib.load("models/random_forest_pipeline.pkl")
     
 #App Title
-st.title("Toyota Corolla Price Prediction 🚗")
+st.markdown(
+    """
+    <div style="background-color: rgba(255,255,255,0.85); padding: 20px; border-radius: 10px; text-align: center;">
+        <h1 style="color: #1f77b4;">🚗 Toyota Corolla Price Prediction</h1>
+        <p style="font-size: 16px;">Predict the price of a used Toyota Corolla based on its specifications.</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.write("")  # spacing
 
 # User inputs
-year = st.number_input("Year of Manufacturing", 1990, 2025, 2010)
-km = st.number_input("Kilometers Driven", 0, 500000, 50000)
-hp = st.number_input("Horsepower (HP)", 50, 300, 100)
-cc = st.number_input("Engine Capacity (CC)", 500, 5000, 1500)
-doors = st.selectbox("Doors", [2, 3, 4, 5])
-seats = st.selectbox("Seats", [2, 4, 5, 7])
+st.markdown("### Enter Car Details")
 
-# Create Input DataFrame
-input_df = pd.DataFrame({
-    "Year": [year],
-    "KM": [km],
-    "HP": [hp],
-    "CC": [cc],
-    "Doors": [doors],
-    "Seats": [seats]
-})
+col1, col2 = st.columns(2)
+
+with col1:
+    age = st.number_input("Age (in months)", 1, 250, 60)
+    km = st.number_input("Kilometers Driven", 0, 500000, 50000)
+    hp = st.number_input("Horsepower (HP)", 40, 300, 100)
+    cc = st.number_input("Engine Capacity (CC)", 800, 5000, 1600)
+
+with col2:
+    doors = st.selectbox("Doors", [2, 3, 4, 5])
+    gears = st.selectbox("Gears", [4, 5, 6])
+    weight = st.number_input("Weight (kg)", 800, 2000, 1200)
+    fuel_type = st.selectbox("Fuel Type", ["Petrol", "Diesel", "CNG"])
+
+automatic = st.selectbox("Transmission", ["Manual", "Automatic"])
+automatic = 1 if automatic == "Automatic" else 0
 
 #Prediction
 if st.button("Predict Price"):
-    scaled_input = scaler.transform(input_df)
-    prediction = model.predict(scaled_input)[0]
+    prediction = model.predict(input_df)[0]
     st.success(f"Estimated Price: ₹ {prediction:,.2f}")
 
