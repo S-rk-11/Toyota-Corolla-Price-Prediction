@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import os
 
 # Page Config
 st.set_page_config(
@@ -65,13 +64,6 @@ input_df = pd.DataFrame({
     "Doors": [doors],
     "Seats": [seats]
 })
-
-#scale input
-scaled_input = scaler.transform(input_data)
-
-# Prediction
-prediction = model.predict(scaled_input)[0]
-prediction_proba = model.predict_proba(scaled_input)[0][1]
 
 #Prediction
 if st.button("Predict Price"):
